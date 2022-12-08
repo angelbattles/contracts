@@ -57,9 +57,9 @@ contract ABStore is AccessControl, VRFConsumerBase {
 
     mapping(address => UltimatePackCommit) public ultimatePackCommits;
 
-    uint256 public bronzePrice = 100;
-    uint256 public silverPrice = 200;
-    uint256 public goldPrice = 300;
+    uint256 public bronzePrice = 10000000000000000000;
+    uint256 public silverPrice = 20000000000000000000;
+    uint256 public goldPrice = 40000000000000000000;
 
     // Price in Halo tokens for the special pack
     uint256 public specialPackHaloPrice = 1000000000000000000000;
@@ -74,11 +74,11 @@ contract ABStore is AccessControl, VRFConsumerBase {
     constructor()
         public
         VRFConsumerBase(
-            0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, // VRF Coordinator
-            0x326C977E6efc84E512bB9C30f76E30c160eD06FB // LINK Token
+            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator
+            0xb0897686c545045aFc77CF20eC7A532E3120E0F1 // LINK Token
         )
     {
-        keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
+        keyHash = 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da;
         fee = 0.0001 * 10**18; // 0.0001 LINK
     }
 
@@ -578,10 +578,10 @@ contract ABStore is AccessControl, VRFConsumerBase {
             return (120 + randomPower);
         }
         if (_angelSeriesId == 2) {
-            return (250 + randomPower);
+            return (330 + randomPower);
         }
         if (_angelSeriesId == 3) {
-            return (300 + randomPower);
+            return (350 + randomPower);
         }
         return 1;
     }
