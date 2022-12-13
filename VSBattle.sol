@@ -19,10 +19,7 @@ contract AccessControl {
     }
 }
 
-contract SafeMath {
-
-    
-}
+contract SafeMath {}
 
 abstract contract IHalo {
     function transfer(address recipient, uint256 amount)
@@ -638,7 +635,8 @@ contract VSBattle is AccessControl {
         return purpleKilled;
     }
 
-    function battleRound(uint64 battleId, uint8 _action) public {
+    function battleRound(uint8 _action) public {
+        uint64 battleId = addressBattleId[msg.sender];
         // end early if the purple angel got a sudden kill
         if (beforeRound(battleId)) {
             return;
@@ -656,7 +654,7 @@ contract VSBattle is AccessControl {
         }
     }
 
-    function attackerTurn(uint64 battleId, uint8 _action) public {
+    function attackerTurn(uint64 battleId, uint8 _action) internal {
         IBattleMtnData BattleMtnData = IBattleMtnData(BattleMtnDataContract);
 
         // petAuraStatus represents pet summon and aura release
