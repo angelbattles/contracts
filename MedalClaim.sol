@@ -157,6 +157,15 @@ contract MedalClaim is AccessControl {
     mapping(uint256 => bool) public zeroniumClaimedAngel;
     mapping(uint256 => bool) public mainClaimedPets;
 
+    mapping(uint256 => bool) public burnedSilver;
+    mapping(uint256 => bool) public burnedGold;
+    mapping(uint256 => bool) public burnedPlatinum;
+    mapping(uint256 => bool) public burnedPink;
+    mapping(uint256 => bool) public burnedOrichalcum;
+    mapping(uint256 => bool) public burnedDiamond;
+    mapping(uint256 => bool) public burnedZeronium;
+
+
     // write functions
     function setDataContacts(
         address _ABTokenDataContract,
@@ -572,6 +581,10 @@ contract MedalClaim is AccessControl {
 
         require(getCardSeries(medalId) == 65, 'Not silver medal');
 
+        require(burnedSilver[cardId] == false, 'Card already buffed');
+
+        burnedSilver[cardId] = true;
+
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
 
@@ -596,6 +609,10 @@ contract MedalClaim is AccessControl {
         require(cardSeriesId > 0 && cardSeriesId < 24, 'Not Angel Card');
 
         require(getCardSeries(medalId) == 66, 'Not gold medal');
+
+        require(burnedGold[cardId] == false, 'Card already buffed');
+
+        burnedGold[cardId] = true;
 
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
@@ -629,6 +646,10 @@ contract MedalClaim is AccessControl {
 
         require(getCardSeries(medalId) == 67, 'Not platinum medal');
 
+        require(burnedPlatinum[cardId] == false, 'Card already buffed');
+
+        burnedPlatinum[cardId] = true;
+
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
 
@@ -641,7 +662,7 @@ contract MedalClaim is AccessControl {
             ABTokenData.setAuras(cardId, red, blue + 50, yellow);
         }
 
-        if (color == 2) {
+        if (color == 3) {
             ABTokenData.setAuras(cardId, red, blue, yellow + 50);
         }
     }
@@ -671,6 +692,10 @@ contract MedalClaim is AccessControl {
 
         require(getCardSeries(medalId) == 68, 'Not stupid fluffy pink medal');
 
+        require(burnedPink[cardId] == false, 'Card already buffed');
+
+        burnedPink[cardId] = true;
+
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
 
@@ -683,7 +708,7 @@ contract MedalClaim is AccessControl {
             ABTokenData.setAuras(cardId, red, blue + 75, yellow);
         }
 
-        if (color == 2) {
+        if (color == 3) {
             ABTokenData.setAuras(cardId, red, blue, yellow + 75);
         }
     }
@@ -713,6 +738,10 @@ contract MedalClaim is AccessControl {
 
         require(getCardSeries(medalId) == 69, 'Not orichalcum medal');
 
+        require(burnedOrichalcum[cardId] == false, 'Card already buffed');
+
+        burnedOrichalcum[cardId] = true;
+
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
 
@@ -725,7 +754,7 @@ contract MedalClaim is AccessControl {
             ABTokenData.setAuras(cardId, red, blue + 100, yellow);
         }
 
-        if (color == 2) {
+        if (color == 3) {
             ABTokenData.setAuras(cardId, red, blue, yellow + 100);
         }
     }
@@ -747,6 +776,10 @@ contract MedalClaim is AccessControl {
         require(cardSeriesId > 0 && cardSeriesId < 24, 'Not Angel Card');
 
         require(getCardSeries(medalId) == 70, 'Not diamond medal');
+
+        require(burnedDiamond[cardId] == false, 'Card already buffed');
+
+        burnedDiamond[cardId] = true;
 
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
@@ -774,20 +807,21 @@ contract MedalClaim is AccessControl {
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
 
-        uint8 top = 50;
+        uint8 top = 59;
        
         if ( cardSeriesId <= 39) {
-            top = 40;
+            top = 49;
         }
          if ( cardSeriesId <= 35) {
-            top = 30;
+            top = 39;
         }
         if ( cardSeriesId <= 31) {
-            top = 20;
+            top = 29;
         }
         if ( cardSeriesId <= 27) {
-            top = 10;
+            top = 19;
         }
+        require(top > power, 'Pet already at max speed');
         // Top up pet's power
         ABTokenData.increasePower(
             cardId,
@@ -806,6 +840,10 @@ contract MedalClaim is AccessControl {
         require(cardSeriesId > 0 && cardSeriesId < 24, 'Not Angel Card');
 
         require(getCardSeries(medalId) == 72, 'Not zeronium medal');
+
+        require(burnedZeronium[cardId] == false, 'Card already buffed');
+
+        burnedZeronium[cardId] = true;
 
         // Burn the medal
         ABTokenData.transferFrom(msg.sender, DeadAddress, medalId);
